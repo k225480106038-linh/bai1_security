@@ -57,7 +57,7 @@ Phân tích tần suất: so sánh tần suất ký tự của bản mã với p
 #### C++
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b8cefd90-72cf-4db3-8597-90a92ec13d14" />
 
-#### html+css+javascript
+#### HTML+CSS+JAVACRIPT
 <img width="937" height="720" alt="image" src="https://github.com/user-attachments/assets/e661b5fc-4aa3-4f10-83ca-8fb1f64d9ecf" />
 
 
@@ -85,7 +85,7 @@ Known-plaintext: từ cặp plaintext-ciphertext suy a, b bằng hệ phương t
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b27d5153-4afa-4020-8a90-291dad66a760" />
 
 
-#### html+css+javascript
+#### HTML+CSS+JAVACRIPT
 <img width="1025" height="808" alt="image" src="https://github.com/user-attachments/assets/447b47e0-aabd-4775-9690-f3823927a7fe" />
 
 ## Hoán vị
@@ -110,7 +110,7 @@ Brute-force hoán vị: không khả thi nếu n lớn; nhưng nếu n nhỏ (5-
 #### C++
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3f6ddb52-c57e-4513-a7ba-941f47fff8d8" />
 
-#### html+css+javascript
+#### HTML+CSS+JAVACRIPT
 <img width="887" height="478" alt="image" src="https://github.com/user-attachments/assets/f96fc699-8be3-4516-a86b-8bc91a7fb69a" />
 
 ## Vigenère
@@ -149,7 +149,7 @@ Brute-force toàn bộ keyspace chỉ khả thi nếu m nhỏ.
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/01591286-8c60-479e-bcc3-68d5bc93f4ae" />
 
 
-#### html+css+javascript
+#### HTML+CSS+JAVACRIPT
 <img width="913" height="569" alt="image" src="https://github.com/user-attachments/assets/c2e7c7a7-dacd-4b95-83d5-eb6f4f6d5c1e" />
 
 ## Playfair
@@ -183,6 +183,6 @@ Với ciphertext dài, dễ dàng phục hồi plaintext bằng các phương ph
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/78d33805-6c26-4ec5-9f1e-c2b6f61263a2" />
 
 
-#### html+css+javascript
+#### HTML+CSS+JAVACRIPT
 <img width="869" height="551" alt="image" src="https://github.com/user-attachments/assets/9cdc1f95-fd52-4e6d-b140-1910130972a7" />
 
