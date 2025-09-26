@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hoán vị cột</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #fff;   /* nền trắng */
+      color: #000;        /* chữ đen */
+      padding: 20px;
+    }
+    input, button {
+      font-family: monospace;
+      padding: 5px;
+      margin: 5px 0;
+      background: #f9f9f9;   /* ô nhập gần trắng */
+      color: #000;           /* chữ đen */
+      border: 1px solid #000;
+    }
+    pre {
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #000;
+      margin-top: 10px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <pre>
+=== Hoan vi cot (Columnar Transposition) ===
+Nhap plaintext (co the co khoang trang):
+<input type="text" id="plaintext" size="40">
+
+> Nhap khoa (so ) hoac tu khoa (chu):
+<input type="text" id="key" size="20">
+
+<button onclick="run()">Thuc hien</button>
+
+--- Ket qua ---
+Ma hoa: <span id="mahoa"></span>
+Giai ma: <span id="giaima"></span>
+  </pre>
+
+<script>
+function getKeyOrder(key) {
+  let arr = [];
+  for (let i = 0; i < key.length; i++) arr.push([key[i], i]);
+  arr.sort((a, b) => a[0].localeCompare(b[0]));
+  let order = new Array(key.length);
+  for (let rank = 0; rank < arr.length; rank++) {
+    order[arr[rank][1]] = rank;
+  }
+  return order;
+}
+
+function encrypt(pt, key) {
+  let cols = key.length;
+  let rows = Math.ceil(pt.length / cols);
+  let matrix = Array.from({length: rows}, () => Array(cols).fill('X'));
+  let k = 0;
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (k < pt.length) matrix[i][j] = pt[k++];
+    }
+  }
+  let order = getKeyOrder(key);
+  let ct = "";
+  for (let c = 0; c < cols; c++) {
+    let col = order.indexOf(c);
+    for (let r = 0; r < rows; r++) ct += matrix[r][col];
+  }
+  return ct;
+}
+
+function decrypt(ct, key) {
+  let cols = key.length;
+  let rows = Math.ceil(ct.length / cols);
+  let matrix = Array.from({length: rows}, () => Array(cols).fill('X'));
+  let order = getKeyOrder(key);
+  let k = 0;
+  for (let c = 0; c < cols; c++) {
+    let col = order.indexOf(c);
+    for (let r = 0; r < rows; r++) {
+      if (k < ct.length) matrix[r][col] = ct[k++];
+    }
+  }
+  let pt = "";
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) pt += matrix[i][j];
+  }
+  return pt;
+}
+
+function run() {
+  let pt = document.getElementById("plaintext").value;
+  let key = document.getElementById("key").value;
+  if (key.length < 2) {
+    document.getElementById("mahoa").innerText = " (Lỗi: khóa phải >=2 ký tự)";
+    document.getElementById("giaima").innerText = "";
+    return;
+  }
+  let ct = encrypt(pt, key);
+  let rt = decrypt(ct, key);
+  document.getElementById("mahoa").innerText = ct;
+  document.getElementById("giaima").innerText = rt;
+}
+</script>
+</body>
+</html>

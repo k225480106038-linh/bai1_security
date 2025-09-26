@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Affine Cipher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+        input, textarea, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        label {
+            font-weight: bold;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .result {
+            background: #e0ffe0;
+            padding: 10px;
+            margin-top: 10px;
+            white-space: pre-line;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Affine Cipher</h2>
+        <label for="plaintext">Nhập văn bản:</label>
+        <input type="text" id="plaintext" placeholder="chaolinh">
+
+        <label for="a">a (coprime với 26):</label>
+        <input type="number" id="a" value="5">
+
+        <label for="b">b:</label>
+        <input type="number" id="b" value="7">
+
+        <button onclick="runAffine()">Mã hóa & Giải mã</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function modInverse(a, m) {
+            a = a % m;
+            for (let x = 1; x < m; x++) {
+                if ((a * x) % m === 1) return x;
+            }
+            return -1;
+        }
+
+        function encryptAffine(text, a, b) {
+            let result = "";
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                if (/[a-z]/.test(c)) {
+                    let code = ((a * (c.charCodeAt(0) - 97) + b) % 26) + 97;
+                    result += String.fromCharCode(code);
+                } else {
+                    result += c;
+                }
+            }
+            return result;
+        }
+
+        function decryptAffine(cipher, a, b) {
+            let result = "";
+            let a_inv = modInverse(a, 26);
+            for (let i = 0; i < cipher.length; i++) {
+                let c = cipher[i];
+                if (/[a-z]/.test(c)) {
+                    let code = a_inv * ((c.charCodeAt(0) - 97 - b + 26) % 26);
+                    code = ((code % 26) + 26) % 26;
+                    result += String.fromCharCode(code + 97);
+                } else {
+                    result += c;
+                }
+            }
+            return result;
+        }
+
+        function runAffine() {
+            let text = document.getElementById("plaintext").value.toLowerCase();
+            let a = parseInt(document.getElementById("a").value);
+            let b = parseInt(document.getElementById("b").value);
+
+            if (gcd(a, 26) !== 1) {
+                alert("Giá trị a phải nguyên tố cùng nhau với 26 (gcd(a,26) = 1)");
+                return;
+            }
+
+            let cipher = encryptAffine(text, a, b);
+            let decrypted = decryptAffine(cipher, a, b);
+
+            document.getElementById("result").innerText =
+                `a: ${a}\nb: ${b}\nMa hoa: ${cipher}\nMa giai: ${decrypted}`;
+        }
+
+        function gcd(a, b) {
+            while (b !== 0) {
+                [a, b] = [b, a % b];
+            }
+            return a;
+        }
+    </script>
+</body>
+</html>

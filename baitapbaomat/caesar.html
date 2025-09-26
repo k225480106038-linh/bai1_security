@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Caesar Cipher</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    textarea { width: 100%; height: 100px; }
+    input[type=number] { width: 60px; }
+    .section { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Caesar Cipher</h1>
+  <div class="section">
+    <label>Plaintext / Ciphertext:</label><br />
+    <textarea id="inputText"></textarea>
+  </div>
+  <div class="section">
+    <label>Khóa (k): </label>
+    <input type="number" id="key" value="0" />
+  </div>
+  <div class="section">
+    <button onclick="doEncrypt()">Mã hóa</button>
+    <button onclick="doDecrypt()">Giải mã</button>
+  </div>
+  <div class="section">
+    <label>Kết quả:</label><br />
+    <textarea id="outputText" readonly></textarea>
+  </div>
+
+  <script>
+    function caesarEncrypt(text, k) {
+      let res = "";
+      k = ((k % 26) + 26) % 26;
+      for (let ch of text) {
+        if (ch >= 'A' && ch <= 'Z') {
+          let c = String.fromCharCode((ch.charCodeAt(0) - 65 + k) % 26 + 65);
+          res += c;
+        } else if (ch >= 'a' && ch <= 'z') {
+          let c = String.fromCharCode((ch.charCodeAt(0) - 97 + k) % 26 + 97);
+          res += c;
+        } else {
+          res += ch;
+        }
+      }
+      return res;
+    }
+
+    function caesarDecrypt(text, k) {
+      return caesarEncrypt(text, -k);
+    }
+
+    function doEncrypt() {
+      let text = document.getElementById("inputText").value;
+      let k = parseInt(document.getElementById("key").value);
+      document.getElementById("outputText").value = caesarEncrypt(text, k);
+    }
+
+    function doDecrypt() {
+      let text = document.getElementById("inputText").value;
+      let k = parseInt(document.getElementById("key").value);
+      document.getElementById("outputText").value = caesarDecrypt(text, k);
+    }
+  </script>
+</body>
+</html>
